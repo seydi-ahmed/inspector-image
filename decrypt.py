@@ -2,7 +2,7 @@ from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
 
 # Load the image
-image_path = "/mnt/data/image.jpeg"
+image_path = "/image.jpeg"
 image = Image.open(image_path)
 
 # Extract EXIF data
