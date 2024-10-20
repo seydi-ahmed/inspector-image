@@ -2,7 +2,7 @@ from PIL import Image
 from PIL.ExifTags import TAGS, GPSTAGS
 
 # Load the image
-image_path = "/image.jpeg"
+image_path = "image.jpeg"
 image = Image.open(image_path)
 
 # Extract EXIF data
@@ -38,4 +38,5 @@ if "GPSLongitude" in gps_data and "GPSLongitudeRef" in gps_data:
     if gps_data["GPSLongitudeRef"] != "E":
         lon = -lon
 
-(lat, lon, gps_data)
+print(f"Latitude: {lat}, Longitude: {lon}")
+print(f"GPS Data: {gps_data}")
