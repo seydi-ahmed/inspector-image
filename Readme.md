@@ -2,7 +2,8 @@
 
 ## Installation
 - git clone https://learn.zone01dakar.sn/git/mouhameddiouf/inspector-image.git
-- pip install ExifRead
+- pip install exifread
+- pip install stegano
 
 ## Utilisation
 ### Simple
