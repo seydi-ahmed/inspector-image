@@ -1,6 +1,5 @@
 import sys
 import exifread
-from stegano import lsb
 
 def extract_gps_info(image_path):
     # Ouvre le fichier image en mode lecture binaire
@@ -29,12 +28,18 @@ def convert_to_degrees(value, ref):
     return decimal
 
 def extract_steganography(image_path):
-    # Tente d'extraire le message caché avec la méthode LSB
-    try:
-        hidden_message = lsb.reveal(image_path)
-        return hidden_message if hidden_message else "No hidden message found."
-    except Exception as e:
-        return f"Error while extracting hidden message: {e}"
+    with open(image_path, 'rb') as ImageFile:
+        content = ImageFile.read()
+        start_marker = b"-----BEGIN PGP PUBLIC KEY BLOCK-----"
+        end_marker = b"-----END PGP PUBLIC KEY BLOCK-----"
+        start_offset = content.find(start_marker)
+        end_offset = content.find(end_marker, start_offset)
+        
+        if start_offset != -1 and end_offset != -1:
+            pgp_key_block = content[start_offset:end_offset+len(end_marker)].decode('utf-8', errors='ignore')
+            return pgp_key_block
+        else:
+            return "No PGP key found"
 
 def main():
     if len(sys.argv) < 3:
